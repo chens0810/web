@@ -23,16 +23,11 @@ nrm use taobao
 
 ### Setup development env
 
-Install yarn for faster installation
-
-```bash
-npm install yarn -g
-```
 
 Install dependencies
 
 ``` bash
-yarn install
+npm install
 ```
 
 Start development for web
