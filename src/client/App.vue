@@ -31,7 +31,8 @@ export default {
 @import './style/index.scss';
 
 #app {
-  font-family: $family-primary;
+  // font-family: $family-primary;
+  font-family: Microsoft YaHei;
   background-color: $grey-light;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

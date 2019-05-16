@@ -1,15 +1,21 @@
 <template>
   <nav :class="classes">
-    <div>
-      <section style="background-image: url(static/image/logo.png);" />
-      <RouteButton to="/">
-        Home
+    <div class="header-main">
+      <section style="background-image: url(static/image/logo.png); padding-right: 100px;" />
+      <RouteButton type="text" to="/home">
+        首页
       </RouteButton>
       <RouteButton to="/httpDemo">
-        HttpDemo
+        我要寄售
       </RouteButton>
       <RouteButton to="/404">
-        404
+        我要收购
+      </RouteButton>
+      <RouteButton to="/httpDemo">
+        我的寄售
+      </RouteButton>
+      <RouteButton to="/404">
+        我的收购
       </RouteButton>
     </div>
     <div v-if="_isElectron" class="is-pulled-right">
@@ -62,8 +68,8 @@ export default {
 
 .app-header {
   @include dragable;
-  height: 2.5rem;
-  background-color: white;
+  height: 104px;
+  background-image: url(/static/image/header-bg.png);
   position: relative;
   box-shadow: 0 1px 1px 1px rgba(0, 0, 0, .1);
   display: none;
@@ -108,5 +114,11 @@ export default {
       }
     }
   }
+}
+
+.header-main {
+  line-height: 104px;
+  margin: 0 auto;
+  width: 1200px;
 }
 </style>

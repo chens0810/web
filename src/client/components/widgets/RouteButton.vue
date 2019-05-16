@@ -30,17 +30,19 @@ export default {
   display: inline-flex;
   background-color: transparent !important;
   font: inherit;
+  font-size: 16px;
+  color: #ffffff;
   position: relative;
   vertical-align: middle;
   will-change: box-shadow;
   user-select: none;
   outline: 0;
   flex: 0 1 auto;
-  font-size: 14px;
   height: 36px;
   align-items: center;
   -webkit-box-align: center;
   -webkit-app-region: no-drag;
+  margin: auto 20px;
 
   &:before {
     border-radius: inherit;
