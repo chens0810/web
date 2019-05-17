@@ -3,20 +3,28 @@
     <div style="padding-top: 84px; display: inline-flex;">
       <div style="border: 1px solid #b5d5e7; width: 880px; text-align: left; padding-bottom: 66px; background-color: #e9f4f9;">
         <div style="display:inline-flex; padding-top: 40px; padding-left: 58px;">
-          <div class="space jishou01">
-            <span>我要寄售</span>
-          </div>
-          <div class="space shougou01">
-            我要收购
-          </div>
+          <a @click="goto('toSale')">
+            <div class="space jishou01">
+              <span>我要寄售</span>
+            </div>
+          </a>
+          <a @click="goto('toBuy')">
+            <div class="space shougou01">
+              我要收购
+            </div>
+          </a>
         </div>
         <div style="display:inline-flex; padding-top: 42px; padding-left: 58px;">
-          <div class="space jishou02">
-            我的寄售
-          </div>
-          <div class="space shougou02">
-            我的收购
-          </div>
+          <a @click="goto('mySaled')">
+            <div class="space jishou02">
+              我的寄售
+            </div>
+          </a>
+          <a @click="goto('myBuyed')">
+            <div class="space shougou02">
+              我的收购
+            </div>
+          </a>
         </div>
       </div>
       <div style="width:300px; height: 550px; margin-left: 20px;">
@@ -62,6 +70,12 @@ export default {
           time: '2019-01-01 09:00:00'
         }
       ]
+    }
+  },
+
+  methods: {
+    goto (path) {
+      this.$router.push(path)
     }
   }
 }

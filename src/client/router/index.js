@@ -59,5 +59,9 @@ export default new Router({
     path: '/account',
     name: 'Account',
     component: lazyLoad('Account')
+  }, {
+    path: '/toSale',
+    name: 'ToSale',
+    component: lazyLoad('ToSale')
   }]
 })
