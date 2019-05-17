@@ -19,10 +19,15 @@
             </tr>
             <tr v-for="(item, index) in acccountList" :key="index">
               <td>{{ item.name }}</td>
-              <td>{{ item.type }}</td>
-              <td>{{ item.time }}</td>
+              <td class="textBlock">
+                {{ item.type }}
+              </td>
+              <td class="textBlock">
+                {{ item.time }}
+              </td>
               <td>{{ item.status }}</td>
             </tr>
+            <Page ref="pageComment" :url="mainUrl" :page-no="pageNo" :col-count="4" @page-size="pageSize" />
           </table>
         </div>
       </div>
@@ -56,10 +61,17 @@
 </template>
 
 <script>
+import Page from '../components/widgets/Page'
 export default {
   name: 'HomePage',
+  components: {
+    Page
+  },
   data () {
     return {
+      mainUrl: '/test',
+      pageNo: 1,
+      pageSize: 12,
       acccountList: [
         {
           name: '账号1',
@@ -107,6 +119,16 @@ export default {
         }
       ]
     }
+  },
+
+  methods: {
+    loadData () {
+      this.$refs.pageComment.initialDisplay()
+    }
+  },
+
+  monuted () {
+    this.loadData()
   }
 }
 </script>
@@ -135,6 +157,8 @@ export default {
   border-bottom: 1px dashed #b5d5e9;
   text-align: left;
   padding: 20px 6px 0 15px;
+  background-color: #e9f4f9;
+  padding-bottom: 6px;
 }
 
 .saledDetail {

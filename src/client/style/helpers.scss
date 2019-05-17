@@ -114,6 +114,7 @@
   border: 1px solid #b5d5e7;
 
   > tr {
+    border-top: 1px solid #b5d5e7;
 
     > th {
       height: 50px;
@@ -130,4 +131,8 @@
       padding-left: 22px;
     }
   }
+}
+
+.textBlock {
+  color: #666666 !important;
 }
