@@ -5,8 +5,8 @@
       <RouteButton type="text" to="/home">
         首页
       </RouteButton>
-      <RouteButton to="/httpDemo">
-        我要寄售
+      <RouteButton to="/account">
+        个人中心
       </RouteButton>
       <RouteButton to="/404">
         我要收购
