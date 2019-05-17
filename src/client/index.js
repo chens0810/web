@@ -10,12 +10,15 @@ import router from './router'
 import store from './store'
 import enrich from './enrich'
 import enrichWeb from './enrich/web'
+import iView from 'iview'
+import 'iview/dist/styles/iview.css'
 
 enrich(Vue)
 enrichWeb(Vue)
 
 Vue.config.devtools = process.env.NODE_ENV !== 'production'
 Vue.config.productionTip = false
+Vue.use(iView)
 
 sync(store, router)
 const { dispatch } = store

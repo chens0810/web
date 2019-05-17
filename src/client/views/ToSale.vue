@@ -3,19 +3,26 @@
     <div style="padding-top:45px; width: 1113px;">
       <img src="/static/image/tit05.jpg">
       <div class="mainInput">
-        <el-form ref="form" :model="toSaleData" label-width="80px">
-          <el-form-item label="服务器">
-            <el-input v-model="toSaleData.type" />
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="onSubmit">
-              立即创建
-            </el-button>
-            <el-button>
-              取消
-            </el-button>
-          </el-form-item>
-        </el-form>
+        <Form ref="formCustom" :model="toSaleData" :rules="ruleCustom" :label-width="80">
+          <div style="display: inline-flex;">
+            <div style="width:50%;">
+              <label style="padding-left:100px;">haha</label>
+              <Input v-model="toSaleData.type" type="text" style="width: 400px;" />
+            </div>
+            <div style="width:50%;">
+              <label style="padding-left:100px;">haha</label>
+              <Input v-model="toSaleData.type" type="text" style="width: 400px;" />
+            </div>
+          </div>
+          <FormItem>
+            <Button type="primary" @click="handleSubmit('formCustom')">
+              Submit
+            </Button>
+            <Button style="margin-left: 8px;" @click="handleReset('formCustom')">
+              Reset
+            </Button>
+          </FormItem>
+        </Form>
       </div>
     </div>
   </section>
@@ -28,7 +35,8 @@ export default {
   data () {
     return {
       toSaleData: {
-        type: ''
+        type: '',
+        system: ''
       }
     }
   },
