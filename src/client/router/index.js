@@ -63,5 +63,17 @@ export default new Router({
     path: '/toSale',
     name: 'ToSale',
     component: lazyLoad('ToSale')
+  }, {
+    path: '/login',
+    name: 'Login',
+    component: resolve => require(['@/views/Login.vue'], resolve)
+  }, {
+    path: '/wechartLogin',
+    name: 'WechartLogin',
+    component: resolve => require(['@/views/WechartLogin.vue'], resolve)
+  }, {
+    path: '/qqLogin',
+    name: 'QQLogin',
+    component: resolve => require(['@/views/QQLogin.vue'], resolve)
   }]
 })
