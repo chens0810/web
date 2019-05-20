@@ -136,3 +136,25 @@
 .textBlock {
   color: #666666 !important;
 }
+
+.ivu-form .ivu-form-item-label {
+  font-size: 14px !important;
+}
+
+.buttonDiv {
+  padding-top: 32px;
+  padding-bottom: 36px;
+
+  > button {
+    width: 170px;
+    height: 48px;
+    font-size: 18px;
+    border-radius: 30px;
+  }
+}
+
+.submitBtn {
+  color: #ffffff !important;
+  background-color: #306ba7 !important;
+  margin-right: 38px;
+}
