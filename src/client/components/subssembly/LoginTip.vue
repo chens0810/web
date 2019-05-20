@@ -40,6 +40,7 @@ export default {
     background: #2e6aa9;
     border-radius: 5px 0;
     padding: 15px 10px 5px 10px;
+
     li {
       border-radius: 5px;
       background: #ffffff;
@@ -51,6 +52,7 @@ export default {
       cursor: pointer;
       text-align: left;
       padding-left: 25px;
+
       img {
         position: relative;
         top: 9px;

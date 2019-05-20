@@ -51,27 +51,34 @@ export default {
   background: #eaf3fa;
   height: 100%;
 }
+
 .right-item {
   position: relative;
   background: #ffffff;
+
   .login-icon {
     position: absolute;
     right: 0;
     top: 0;
     cursor: pointer;
   }
+
   .login-title {
     font-size: 18px;
     text-align: left;
     padding: 35px;
   }
+
   .login-content {
+
     img {
       display: block;
       margin: 20px auto;
     }
   }
+
   .login-footer {
+
     img {
       position: relative;
       top: 5px;
@@ -79,10 +86,12 @@ export default {
     text-align: center;
     font-size: 16px;
     color: #ababab;
+
     p {
       font-size: 16px;
       text-align: right;
       margin-top: 20px;
+
       a {
         margin-right: 20px;
         color: #444444;

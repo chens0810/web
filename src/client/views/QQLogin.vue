@@ -88,27 +88,34 @@ export default {
   background: #eaf3fa;
   height: 100%;
 }
+
 .right-item {
   position: relative;
   background: #ffffff;
+
   .login-icon {
     position: absolute;
     right: 0;
     top: 0;
     cursor: pointer;
   }
+
   .login-title {
     font-size: 18px;
     text-align: left;
     padding: 35px;
   }
+
   .login-content {
+
     .code-img {
       display: block;
       margin: 20px auto;
     }
   }
+
   .login-footer {
+
     img {
       position: relative;
       top: 5px;
@@ -116,10 +123,12 @@ export default {
     text-align: center;
     font-size: 16px;
     color: #ababab;
+
     p {
       font-size: 16px;
       text-align: right;
       margin-top: 20px;
+
       a {
         margin-right: 20px;
         color: #444444;
@@ -127,14 +136,18 @@ export default {
     }
   }
 }
+
 .password-item {
+
   .login-content {
     width: 300px;
     margin: 20px auto;
+
     .login-input {
       height: 40px;
       position: relative;
       margin-bottom: 20px;
+
       input {
         position: absolute;
         border: 1px solid #dddddd;
@@ -146,6 +159,7 @@ export default {
         line-height: 40px;
       }
     }
+
     .login-btn {
       width: 100%;
       border-radius: 5px;
@@ -158,15 +172,19 @@ export default {
       cursor: pointer;
     }
   }
+
   .login-footer {
+
     .login-link {
       width: 300px;
       margin: 0 auto;
       font-size: 16px;
       text-align: left;
+
       a {
         margin-left: 10px;
         color: #444444;
+
         img {
           position: relative;
           top: 7px;

@@ -66,21 +66,26 @@ export default {
   background: #eaf3fa;
   height: 100%;
 }
+
 .right-item {
   position: relative;
   background: #ffffff;
+
   .login-title {
     font-size: 18px;
     text-align: left;
     padding: 35px;
   }
+
   .login-content {
     width: 300px;
     margin: 20px auto;
+
     .login-input {
       height: 40px;
       position: relative;
       margin-bottom: 20px;
+
       input {
         position: absolute;
         border: 1px solid #dddddd;
@@ -92,6 +97,7 @@ export default {
         line-height: 40px;
       }
     }
+
     .login-btn {
       width: 100%;
       border-radius: 5px;
@@ -104,14 +110,18 @@ export default {
       cursor: pointer;
     }
   }
+
   .login-footer {
+
     .login-link {
       width: 300px;
       margin: 0 auto;
       font-size: 16px;
+
       a {
         margin-left: 10px;
         color: #444444;
+
         img {
           position: relative;
           top: 7px;
@@ -119,10 +129,12 @@ export default {
         }
       }
     }
+
     p {
       font-size: 16px;
       text-align: right;
       margin-top: 60px;
+
       a {
         margin-right: 20px;
         color: #444444;
