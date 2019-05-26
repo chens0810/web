@@ -108,7 +108,7 @@
           <Button class="submitBtn">
             提交
           </Button>
-          <Button>
+          <Button @click="doCancel">
             取消
           </Button>
         </div>
@@ -150,6 +150,9 @@ export default {
   methods: {
     onSubmit () {
       console.log('onSubmit')
+    },
+    doCancel () {
+      this.$router.push('/account')
     }
   }
 }

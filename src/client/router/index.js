@@ -64,6 +64,18 @@ export default new Router({
     name: 'ToSale',
     component: lazyLoad('ToSale')
   }, {
+    path: '/toBuy',
+    name: 'ToBuy',
+    component: lazyLoad('ToBuy')
+  }, {
+    path: '/mySaled',
+    name: 'MySaled',
+    component: lazyLoad('MySaled')
+  }, {
+    path: '/myBuyed',
+    name: 'MyBuyed',
+    component: lazyLoad('MyBuyed')
+  }, {
     path: '/login',
     name: 'Login',
     component: resolve => require(['@/views/Login.vue'], resolve)
