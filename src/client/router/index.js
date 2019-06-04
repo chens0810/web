@@ -84,6 +84,14 @@ export default new Router({
     name: 'WechartLogin',
     component: resolve => require(['@/views/WechartLogin.vue'], resolve)
   }, {
+    path: '/userList',
+    name: 'UserList',
+    component: resolve => require(['@/views/UserList.vue'], resolve)
+  }, {
+    path: '/innerLog',
+    name: 'InnerLog',
+    component: resolve => require(['@/views/InnerLog.vue'], resolve)
+  }, {
     path: '/qqLogin',
     name: 'QQLogin',
     component: resolve => require(['@/views/QQLogin.vue'], resolve)

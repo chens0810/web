@@ -14,8 +14,11 @@
       <RouteButton to="/httpDemo">
         我的寄售
       </RouteButton>
-      <RouteButton to="/404">
-        我的收购
+      <RouteButton to="/innerLog">
+        操作日志
+      </RouteButton>
+      <RouteButton to="/userList">
+        用户中心
       </RouteButton>
     </div>
     <div v-if="_isElectron" class="is-pulled-right">
