@@ -1,6 +1,9 @@
 module.exports = {
-  // '/external': {
-  //   target: 'external url',
-  //   changeOrigin: true
-  // }
+  '/api': {
+    target: 'http://localhost:8090',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api': ''
+    }
+  }
 }

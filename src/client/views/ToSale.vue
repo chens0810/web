@@ -105,7 +105,7 @@
           </div>
         </div>
         <div class="buttonDiv">
-          <Button class="submitBtn">
+          <Button class="submitBtn" @click="onSubmit">
             提交
           </Button>
           <Button @click="doCancel">
@@ -149,7 +149,20 @@ export default {
 
   methods: {
     onSubmit () {
-      console.log('onSubmit')
+      console.log(this.toSaleData)
+      this.$http.post('/sale/addSale', this.toSaleData).then(res => {
+        console.log(res)
+        if (res.data.rtnCode === '000') {
+          this.$Notice.success({
+            title: '提交成功，请耐心等待审核！'
+          })
+          this.$router.push('Account')
+        } else {
+          this.$Notice.error({
+            title: '提交失败，请检查！'
+          })
+        }
+      })
     },
     doCancel () {
       this.$router.push('/account')
