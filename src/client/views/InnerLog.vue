@@ -27,7 +27,7 @@
               {{ item.operDate }}
             </td>
           </tr>
-          <Page ref="pageComment" :url="mainUrl" :page-no="pageNo" :col-count="5" @page-size="pageSize" />
+          <Page ref="pageComment" :url="mainUrl" :total="total" :page-no="pageNo" :col-count="5" @page-size="pageSize" />
         </table>
       </div>
     </div>
@@ -46,75 +46,20 @@ export default {
     return {
       mainUrl: '/log/find',
       pageNo: 1,
-      pageSize: 12,
+      pageSize: 10,
+      total: 0,
       acccountList: [
-        {
-          id: '1',
-          name: '账号1',
-          type: '查询寄售',
-          reqCode: '{type:"1",code:"2"}',
-          time: '2019-01-01 09:00:00'
-        },
-        {
-          id: '2',
-          name: '账号1',
-          type: '我要寄售',
-          reqCode: '{type:"1",code:"2"}',
-          time: '2019-01-01 09:00:00'
-        },
-        {
-          id: '3',
-          name: '账号1',
-          type: '我要发布',
-          reqCode: '{type:"1",code:"2"}',
-          time: '2019-01-01 09:00:00'
-        },
-        {
-          id: '4',
-          name: '账号1',
-          type: '我要发布',
-          reqCode: '{type:"1",code:"2"}',
-          time: '2019-01-01 09:00:00'
-        },
-        {
-          id: '5',
-          name: '账号1',
-          type: '查询寄售',
-          reqCode: '{type:"1",code:"2"}',
-          time: '2019-01-01 09:00:00'
-        },
-        {
-          id: '1',
-          name: '账号2',
-          type: '查询账号',
-          reqCode: '{type:"1",code:"2"}',
-          time: '2019-01-01 09:00:00'
-        },
-        {
-          id: '6',
-          name: '账号3',
-          type: '查询账号',
-          reqCode: '{type:"1",code:"2"}',
-          time: '2019-01-01 09:00:00'
-        },
-        {
-          id: '7',
-          name: '账号4',
-          type: '查询寄售',
-          reqCode: '{type:"1",code:"2"}',
-          time: '2019-01-01 09:00:00'
-        }
       ]
     }
   },
 
   methods: {
     onSubmit () {
-      console.log('key')
       this.$http.post('/log/find', this.user).then(res => {
-        console.log(res)
         if (res.status === 200) {
           this.acccountList = res.data.data
+          this.total = res.data.total
+          this.pageSize = 10
         } else {
           this.$Notice.error({
             title: '查询异常！'
