@@ -41,7 +41,7 @@ export default {
 
   data () {
     return {
-      mainUrl: '/test',
+      mainUrl: '/log/find',
       pageNo: 1,
       pageSize: 12,
       acccountList: [

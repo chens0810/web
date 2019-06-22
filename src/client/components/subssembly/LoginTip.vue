@@ -45,7 +45,7 @@ export default {
       border-radius: 5px;
       background: #ffffff;
       margin-bottom: 10px;
-      width: 168px;
+      width: 126px;
       height: 48px;
       line-height: 48px;
       font-size: 16px;

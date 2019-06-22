@@ -20,7 +20,12 @@
       <RouteButton to="/userList">
         用户中心
       </RouteButton>
+      <RouteButton to="/Login">
+        用户中心
+      </RouteButton>
+      <LoginTip />
     </div>
+
     <div v-if="_isElectron" class="is-pulled-right">
       <Icon type="close" size="24" @click="closeWindow" />
     </div>

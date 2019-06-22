@@ -52,56 +52,56 @@ export default {
           name: '账号1',
           type: '国服',
           time: '2019-01-01 09:00:00',
-          status: '在售'
+          status: '在线'
         },
         {
           id: '2',
           name: '账号1',
           type: '国服',
           time: '2019-01-01 09:00:00',
-          status: '在售'
+          status: '在线'
         },
         {
           id: '3',
           name: '账号1',
           type: '国服',
           time: '2019-01-01 09:00:00',
-          status: '在售'
+          status: '在线'
         },
         {
           id: '4',
           name: '账号1',
           type: '国服',
           time: '2019-01-01 09:00:00',
-          status: '在售'
+          status: '离线'
         },
         {
           id: '5',
           name: '账号1',
           type: '国服',
           time: '2019-01-01 09:00:00',
-          status: '在售'
+          status: '离线'
         },
         {
           id: '1',
           name: '账号2',
           type: '国服',
           time: '2019-01-01 09:00:00',
-          status: '已售'
+          status: '离线'
         },
         {
           id: '6',
           name: '账号3',
           type: '国服',
           time: '2019-01-01 09:00:00',
-          status: '待售'
+          status: '离线'
         },
         {
           id: '7',
           name: '账号4',
           type: '国服',
           time: '2019-01-01 09:00:00',
-          status: '待售'
+          status: '离线'
         }
       ],
       saledList: [

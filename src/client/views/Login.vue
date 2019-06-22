@@ -12,13 +12,13 @@
           <div class="login-content">
             <div class="login-input">
               <img src="/static/image/login01.jpg">
-              <input type="text" placeholder="会员名/邮箱/手机号">
+              <input type="text" :value.sync="userName" placeholder="登录名">
             </div>
             <div class="login-input">
               <img src="/static/image/login02.png">
               <input type="password">
             </div>
-            <button class="login-btn">
+            <button class="login-btn" @click="onLogin">
               登录
             </button>
           </div>
@@ -27,7 +27,7 @@
               <a @click="goToWechartLogin()"><img src="/static/image/icon07.png">微信登录</a>
               <a @click="goToQQLogin()"><img src="/static/image/icon08.png">QQ登录</a>
             </div>
-            <p><a>忘记密码</a><a>忘记会员名</a><a>免费注册</a></p>
+            <!-- <p><a>忘记密码</a><a>忘记会员名</a><a>免费注册</a></p>-->
           </div>
         </div>
       </div>
@@ -53,6 +53,22 @@ export default {
     },
     goToQQLogin () {
       this.$router.push('/qqLogin')
+    },
+    onLogin () {
+      console.log(this.toSaleData)
+      this.$http.post('/sale/addSale', this.toSaleData).then(res => {
+        console.log(res)
+        if (res.data.rtnCode === '000') {
+          this.$Notice.success({
+            title: '提交成功，请耐心等待审核！'
+          })
+          this.$router.push('Account')
+        } else {
+          this.$Notice.error({
+            title: '提交失败，请检查！'
+          })
+        }
+      })
     }
   },
 
