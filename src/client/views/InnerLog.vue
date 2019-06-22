@@ -1,30 +1,33 @@
 <template>
   <section class="text-center mainWidth">
     <div style="padding-top:45px; width: 1113px;">
-      <img src="/static/image/tit04.jpg">
+      <i class="title-tx">操作日志</i>
+      <button class="login-btn" @click="onSubmit">
+        查询
+      </button>
       <div class="mainInput">
         <table class="tableList">
           <tr>
             <th>编号</th>
             <th>用户名称</th>
             <th>操作模块</th>
-            <th>请求参数</th>
+            <th>获取数据</th>
             <th>时间</th>
           </tr>
           <tr v-for="(item, index) in acccountList" :key="index">
-            <td>{{ item.id }}</td>
-            <td>{{ item.name }}</td>
+            <td>{{ item.flowNo }}</td>
+            <td>{{ item.logName }}</td>
             <td class="textBlock">
-              {{ item.type }}
+              {{ item.operate }}
             </td>
             <td class="textBlock">
-              {{ item.reqCode }}
+              {{ item.errorMsg }}
             </td>
             <td class="textBlock">
-              {{ item.time }}
+              {{ item.operDate }}
             </td>
           </tr>
-          <Page ref="pageComment" :url="mainUrl" :page-no="pageNo" :col-count="4" @page-size="pageSize" />
+          <Page ref="pageComment" :url="mainUrl" :page-no="pageNo" :col-count="5" @page-size="pageSize" />
         </table>
       </div>
     </div>
@@ -101,26 +104,6 @@ export default {
           reqCode: '{type:"1",code:"2"}',
           time: '2019-01-01 09:00:00'
         }
-      ],
-      saledList: [
-        {
-          account: 'A000001',
-          type: '国服',
-          price: '￥100.00',
-          time: '2019-01-01 09:00:00'
-        },
-        {
-          account: 'A000002',
-          type: '国服',
-          price: '￥100.00',
-          time: '2019-01-01 09:00:00'
-        },
-        {
-          account: 'A000003',
-          type: '国服',
-          price: '￥100.00',
-          time: '2019-01-01 09:00:00'
-        }
       ]
     }
   },
@@ -128,6 +111,16 @@ export default {
   methods: {
     onSubmit () {
       console.log('key')
+      this.$http.post('/log/find', this.user).then(res => {
+        console.log(res)
+        if (res.status === 200) {
+          this.acccountList = res.data.data
+        } else {
+          this.$Notice.error({
+            title: '查询异常！'
+          })
+        }
+      })
     },
     doUp (ev) {
       alert('已禁止' + ev.id)
@@ -135,6 +128,11 @@ export default {
     doCancel () {
       this.$router.push('/account')
     }
+  },
+
+  monuted () {
+    alert('已禁止')
+    this.onSubmit()
   }
 }
 </script>
@@ -155,5 +153,12 @@ export default {
   border: 1px solid #b5d5e7;
   border-radius: 5px;
   text-align: left;
+}
+
+.title-tx {
+  text-align: left;
+  font-size: 28px;
+  float: left;
+  font-style: normal;
 }
 </style>

@@ -16,7 +16,7 @@
             </div>
             <div class="login-input">
               <img src="/static/image/login02.png">
-              <input v-model="user.password" type="password">
+              <input v-model="user.logPwd" type="password">
             </div>
             <button class="login-btn" @click="onLogin">
               登录
@@ -47,7 +47,7 @@ export default {
     return {
       user: {
         userName: '',
-        password: ''
+        logPwd: ''
       }
     }
   },
@@ -61,7 +61,7 @@ export default {
     },
     onLogin () {
       console.log(this.user)
-      this.$http.post('/login', this.user).then(res => {
+      this.$http.post('/log/find', this.user).then(res => {
         console.log(res)
         if (res.data.rtnCode === '000') {
           if (res.data.data === '1') {
