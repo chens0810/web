@@ -18,14 +18,12 @@
         操作日志
       </RouteButton>
       <RouteButton to="/userList">
-        用户中心
+        用户列表
       </RouteButton>
       <RouteButton to="/Login">
-        用户中心
+        用户登录
       </RouteButton>
-      <LoginTip />
     </div>
-
     <div v-if="_isElectron" class="is-pulled-right">
       <Icon type="close" size="24" @click="closeWindow" />
     </div>

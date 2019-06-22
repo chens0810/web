@@ -21,24 +21,25 @@
               {{ item.time }}
             </td>
             <td>
-              <Button class="" @click="doUp(item)">
-                {{ item.status }}
-              </Button>
+              {{ item.status }}
             </td>
           </tr>
           <Page ref="pageComment" :url="mainUrl" :page-no="pageNo" :col-count="4" @page-size="pageSize" />
         </table>
       </div>
     </div>
+    <LoginTip />
   </section>
 </template>
 
 <script type="text/javascript">
 import Page from '../components/widgets/Page'
+import LoginTip from '../components/subssembly/LoginTip'
 export default {
   name: 'UserList',
   components: {
-    Page
+    Page,
+    LoginTip
   },
 
   data () {
@@ -50,56 +51,56 @@ export default {
         {
           id: '1',
           name: '账号1',
-          type: '国服',
+          type: '微信',
           time: '2019-01-01 09:00:00',
           status: '在线'
         },
         {
           id: '2',
           name: '账号1',
-          type: '国服',
+          type: '微信',
           time: '2019-01-01 09:00:00',
           status: '在线'
         },
         {
           id: '3',
           name: '账号1',
-          type: '国服',
+          type: '微信',
           time: '2019-01-01 09:00:00',
           status: '在线'
         },
         {
           id: '4',
           name: '账号1',
-          type: '国服',
+          type: 'QQ',
           time: '2019-01-01 09:00:00',
           status: '离线'
         },
         {
           id: '5',
           name: '账号1',
-          type: '国服',
+          type: 'QQ',
           time: '2019-01-01 09:00:00',
           status: '离线'
         },
         {
           id: '1',
           name: '账号2',
-          type: '国服',
+          type: 'QQ',
           time: '2019-01-01 09:00:00',
           status: '离线'
         },
         {
           id: '6',
           name: '账号3',
-          type: '国服',
+          type: '微信',
           time: '2019-01-01 09:00:00',
           status: '离线'
         },
         {
           id: '7',
           name: '账号4',
-          type: '国服',
+          type: '微信',
           time: '2019-01-01 09:00:00',
           status: '离线'
         }

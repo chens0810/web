@@ -57,15 +57,18 @@
     <div style="padding-top: 70px;">
       &nbsp;
     </div>
+    <LoginTip />
   </section>
 </template>
 
 <script>
 import Page from '../components/widgets/Page'
+import LoginTip from '../components/subssembly/LoginTip'
 export default {
   name: 'HomePage',
   components: {
-    Page
+    Page,
+    LoginTip
   },
   data () {
     return {

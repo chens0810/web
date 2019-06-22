@@ -12,11 +12,11 @@
           <div class="login-content">
             <div class="login-input">
               <img src="/static/image/login01.jpg">
-              <input type="text" :value.sync="userName" placeholder="登录名">
+              <input v-model="user.userName" type="text" placeholder="登录名">
             </div>
             <div class="login-input">
               <img src="/static/image/login02.png">
-              <input type="password">
+              <input v-model="user.password" type="password">
             </div>
             <button class="login-btn" @click="onLogin">
               登录
@@ -44,7 +44,12 @@ export default {
     LoginTip
   },
   data () {
-    return {}
+    return {
+      user: {
+        userName: '',
+        password: ''
+      }
+    }
   },
 
   methods: {
@@ -55,17 +60,23 @@ export default {
       this.$router.push('/qqLogin')
     },
     onLogin () {
-      console.log(this.toSaleData)
-      this.$http.post('/sale/addSale', this.toSaleData).then(res => {
+      console.log(this.user)
+      this.$http.post('/login', this.user).then(res => {
         console.log(res)
         if (res.data.rtnCode === '000') {
-          this.$Notice.success({
-            title: '提交成功，请耐心等待审核！'
-          })
-          this.$router.push('Account')
+          if (res.data.data === '1') {
+            this.$Notice.success({
+              title: '登录成功！'
+            })
+            this.$router.push('Account')
+          } else {
+            this.$Notice.success({
+              title: '用户名或密码不正确！'
+            })
+          }
         } else {
           this.$Notice.error({
-            title: '提交失败，请检查！'
+            title: '登录异常！'
           })
         }
       })

@@ -24,15 +24,18 @@
         </table>
       </div>
     </div>
+    <LoginTip />
   </section>
 </template>
 
 <script type="text/javascript">
 import Page from '../components/widgets/Page'
+import LoginTip from '../components/subssembly/LoginTip'
 export default {
   name: 'MyBuyed',
   components: {
-    Page
+    Page,
+    LoginTip
   },
 
   data () {

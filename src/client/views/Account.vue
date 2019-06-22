@@ -41,13 +41,17 @@
         </div>
       </div>
     </div>
+    <LoginTip />
   </section>
 </template>
 
 <script type="text/javascript">
+import LoginTip from '../components/subssembly/LoginTip'
 export default {
   name: 'AccountCenter',
-
+  components: {
+    LoginTip
+  },
   data () {
     return {
       saledList: [

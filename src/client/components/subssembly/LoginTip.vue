@@ -1,13 +1,21 @@
 <template>
   <div class="login-tip">
+    <div class="qunlogo">
+      <img v-show="active === 2" src="/static/image/qqqun.png">
+    </div>
+    <div class="qunlogo">
+      <img v-show="active === 1" src="/static/image/weiqun.png">
+    </div>
     <ul>
-      <li @click="wechartLogin()">
-        <span><img src="/static/image/weixin-icon.png"></span>微信群
+      <li @mouseenter="showActive(1)" @mouseleave="showActive(0)">
+        <span><img src="/static/image/weixin-icon.png"></span>
       </li>
-      <li @click="QQLogin()">
-        <span><img src="/static/image/qq-icon.png"></span>QQ群
+      <li @mouseenter="showActive(2)" @mouseleave="showActive(0)">
+        <span><img src="/static/image/qq-icon.png"></span>
       </li>
-      <li><span><img src="/static/image/service-icon.png"></span>在线客服</li>
+      <li>
+        <a id="contactQQ" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2575038557&amp;Site=客服&amp;Menu=yes" target="_Blank"><span><img src="/static/image/service-icon.png"></span></a>
+      </li>
     </ul>
   </div>
 </template>
@@ -17,7 +25,9 @@ export default {
   name: 'LoginTip',
   components: {},
   data () {
-    return {}
+    return {
+      active: 0
+    }
   },
   methods: {
     wechartLogin () {
@@ -25,6 +35,9 @@ export default {
     },
     QQLogin () {
       this.$router.push('/qqLogin')
+    },
+    showActive (index) {
+      this.active = index
     }
   },
   monuted () {}
@@ -45,7 +58,7 @@ export default {
       border-radius: 5px;
       background: #ffffff;
       margin-bottom: 10px;
-      width: 126px;
+      width: 60px;
       height: 48px;
       line-height: 48px;
       font-size: 16px;
@@ -59,5 +72,10 @@ export default {
         left: -8px;
       }
     }
+  }
+
+  .qunlogo {
+    position: absolute;
+    left: -146px;
   }
 </style>
