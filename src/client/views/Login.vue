@@ -60,20 +60,13 @@ export default {
       this.$router.push('/qqLogin')
     },
     onLogin () {
-      console.log(this.user)
-      this.$http.post('/log/find', this.user).then(res => {
+      this.$http.post('/user/login', this.user).then(res => {
         console.log(res)
         if (res.data.rtnCode === '000') {
-          if (res.data.data === '1') {
-            this.$Notice.success({
-              title: '登录成功！'
-            })
-            this.$router.push('Account')
-          } else {
-            this.$Notice.success({
-              title: '用户名或密码不正确！'
-            })
-          }
+          this.$Notice.success({
+            title: '登录成功！'
+          })
+          this.$router.push('Home')
         } else {
           this.$Notice.error({
             title: '登录异常！'

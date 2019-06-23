@@ -1,25 +1,46 @@
 import axios from 'axios'
-import { encrypt } from './crypto'
+// import { encrypt } from './crypto'
 import { merge } from 'lodash'
+import router from '../router'
+const cookieReg = new RegExp(/[^ =;]+(?=)/g)
 
 export const httpAgent = axios
-
 export const httpsAgent = axios.create()
-httpsAgent.interceptors.request.use(request => {
-  console.log('asfasdasdasd', process.env.NODE_ENV, request.data)
-  let origin = request.data
+// axios.interceptors.request.use(request => {
+//   let origin = request.data
 
-  if (origin !== null) {
-    request.data = {
-      cipher: encrypt(origin)
-    }
+//   if (origin !== null) {
+//     request.data = {
+//       cipher: encrypt(origin)
+//     }
 
-    if (process.env.NODE_ENV !== 'production') {
-      request.data.origin = origin
+//     if (process.env.NODE_ENV !== 'production') {
+//       request.data.origin = origin
+//     }
+//   }
+
+//   return request
+// })
+
+axios.interceptors.response.use(res => {
+  let rtnCode = res.data.rtnCode
+  if (rtnCode === '444') {
+    let keys = document.cookie.match(cookieReg)
+    if (keys) {
+      let expiresDate = new Date(0).toUTCString()
+      keys.forEach(key => {
+        document.cookie = `${key}=0;expires=${expiresDate}`
+      })
     }
+    // window.location = '/auth'
+    router.replace({
+      path: '/home'
+    })
+  } else {
+    return res
   }
-
-  return request
+}, err => {
+  return Promise.reject(err)
 })
 
 export default {
@@ -43,7 +64,7 @@ export default {
       },
       $https: {
         get () {
-          return httpsAgent
+          return axios
         }
       }
     })
