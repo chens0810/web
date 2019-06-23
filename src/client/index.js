@@ -11,6 +11,7 @@ import store from './store'
 import enrich from './enrich'
 import enrichWeb from './enrich/web'
 import iView from 'iview'
+import cookie from 'js-cookie'
 import 'iview/dist/styles/iview.css'
 
 enrich(Vue)
@@ -21,10 +22,19 @@ Vue.config.productionTip = false
 Vue.use(iView)
 
 sync(store, router)
-const { dispatch } = store
+const { state, dispatch } = store
 
 router.beforeEach((to, from, next) => {
-  next()
+  console.log(to.path, from.path, state.isLoggedin, cookie.get('user_id'))
+  if (!state.isLoggedin && cookie.get('user_id')) {
+    dispatch('userLogin', {
+      userId: cookie.get('user_id'),
+      type: cookie.get('type')
+    })
+    next()
+  } else {
+    next()
+  }
 })
 
 router.afterEach((to) => {

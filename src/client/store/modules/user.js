@@ -6,13 +6,15 @@ const state = {
   name: null,
   title: null,
   token: null,
-  isLoggedin: false
+  isLoggedin: false,
+  type: null
 }
 
 const mutations = {
-  [types.USER_LOGIN] (state, userId) {
+  [types.USER_LOGIN] (state, user) {
     state.isLoggedin = true
-    state.id = userId
+    state.id = user.userId
+    state.type = user.type
   },
   [types.USER_LOGOUT] (state) {
     state.isLoggedin = false

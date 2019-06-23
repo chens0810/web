@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import LoginTip from '../components/subssembly/LoginTip'
 export default {
   name: 'Login',
@@ -53,6 +54,9 @@ export default {
   },
 
   methods: {
+    ...mapActions([
+      'userLogin'
+    ]),
     goToWechartLogin () {
       this.$router.push('/WechartLogin')
     },
@@ -66,6 +70,7 @@ export default {
           this.$Notice.success({
             title: '登录成功！'
           })
+          this.userLogin(res.data.data)
           this.$router.push('Home')
         } else {
           this.$Notice.error({

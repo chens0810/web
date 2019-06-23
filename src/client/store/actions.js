@@ -1,16 +1,19 @@
 import * as types from './mutation-types'
 import router from '@/router'
-import { cookie } from 'js-cookie'
+import cookie from 'js-cookie'
 // import { httpsAgent } from '../enrich/axios'
 // import { VALIDATE_USER_TOKEN, STATES } from '../utils/api'
 // add axios here if nessesary - Luventa
 
-export const userLogin = ({ commit }, userId, redirect = true) => {
-  console.log(userId)
+export const userLogin = ({ commit }, user, redirect = true) => {
+  let userId = user.userId
+  let type = user.type
+  console.log(userId, type, 'action-userlogin')
   if (userId) {
     !cookie.get('user_id') && cookie.set('user_id', userId)
-    commit(types.USER_LOGIN, userId)
-    redirect && router.push('/dashboard/peers')
+    !cookie.get('type') && cookie.set('type', type)
+    commit(types.USER_LOGIN, user)
+    // redirect && router.push('/home')
   } else {
     commit(types.USER_LOGOUT)
     router.push('/')
@@ -19,6 +22,7 @@ export const userLogin = ({ commit }, userId, redirect = true) => {
 
 export const userLogout = ({ commit }) => {
   cookie.remove('user_id')
+  cookie.remove('type')
   commit(types.USER_LOGOUT)
   router.push('/')
 }

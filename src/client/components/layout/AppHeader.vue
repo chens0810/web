@@ -2,26 +2,8 @@
   <nav :class="classes">
     <div class="header-main">
       <section style="background-image: url(static/image/logo.png); padding-right: 100px;" />
-      <RouteButton type="text" to="/home">
-        首页
-      </RouteButton>
-      <RouteButton to="/account">
-        个人中心
-      </RouteButton>
-      <RouteButton to="/404">
-        我要收购
-      </RouteButton>
-      <RouteButton to="/httpDemo">
-        我的寄售
-      </RouteButton>
-      <RouteButton to="/innerLog">
-        操作日志
-      </RouteButton>
-      <RouteButton to="/userList">
-        用户列表
-      </RouteButton>
-      <RouteButton to="/Login">
-        用户登录
+      <RouteButton v-for="(item, index) in menuList" :key="index" :to="item.path" type="text">
+        {{ item.name }}
       </RouteButton>
     </div>
     <div v-if="_isElectron" class="is-pulled-right">
@@ -43,8 +25,46 @@ export default {
     RouteButton
   },
 
+  data () {
+    return {
+      menu: {
+        tourists: [ // 游客展示菜单
+          {
+            name: '主页',
+            path: '/home'
+          },
+          {
+            name: '用户登录',
+            path: '/Login'
+          }
+        ],
+        admin: [ // 管理员展示菜单
+          {
+            name: '操作日志',
+            path: '/innerLog'
+          },
+          {
+            name: '用户列表',
+            path: '/userList'
+          }
+        ],
+        members: [ // 普通用户展示菜单
+          {
+            name: '主页',
+            path: '/home'
+          },
+          {
+            name: '个人中心',
+            path: '/account'
+          }
+        ]
+      }
+    }
+  },
+
   computed: {
     ...mapGetters({
+      _user: '_user',
       _trace: '_trace'
     }),
     classes () {
@@ -55,6 +75,19 @@ export default {
           slideInDown: !this._trace.inLandpage
         }
       ]
+    },
+    menuList () {
+      console.log(this._user)
+      if (this._user.isLoggedin) {
+        // 如果角色是管理员
+        if (this._user.type === '2') {
+          return this.menu.admin
+        } else {
+          return this.menu.members
+        }
+      } else {
+        return this.menu.tourists
+      }
     }
   },
 
