@@ -7,7 +7,7 @@ module.exports = {
   TARGET: `"${process.env.TARGET}"`,
   API_CONF: {
     baseURL: process.env.TARGET === 'web'
-      ? '"/geteway"'
+      ? '"/fate_go"'
       : '"http://prod.demo.com/geteway"',
     timeout: 60 * 1000,
     withCredentials: true,

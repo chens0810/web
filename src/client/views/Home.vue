@@ -124,14 +124,14 @@ export default {
     }
   },
 
+  mounted () {
+    this.loadData()
+  },
+
   methods: {
     loadData () {
       this.$refs.pageComment.initialDisplay()
     }
-  },
-
-  monuted () {
-    this.loadData()
   }
 }
 </script>

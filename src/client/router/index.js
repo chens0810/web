@@ -95,5 +95,9 @@ export default new Router({
     path: '/qqLogin',
     name: 'QQLogin',
     component: resolve => require(['@/views/QQLogin.vue'], resolve)
+  }, {
+    path: '/saleAuth',
+    name: 'SaleAuth',
+    component: lazyLoad('SaleAuth')
   }]
 })

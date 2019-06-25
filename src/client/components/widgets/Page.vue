@@ -4,7 +4,7 @@
       <button @click="goUpPage">
         上一页
       </button>
-      <span style="color: #666666; padding: 10px;">第{{ pageNo }}/{{ total }}页</span>
+      <span style="color: #666666; padding: 10px;">第{{ pageNo }}/{{ totalPage }}页</span>
       <button @click="goNextPage">
         下一页
       </button>
@@ -39,15 +39,40 @@ export default {
     }
   },
 
+  data () {
+    return {
+      totalPage: 1,
+      filter: {}
+    }
+  },
   methods: {
-    initialDisplay () {
-      alert(this.url, this.pageNo)
+    initialDisplay (filter) {
+      this.filter = filter
+      this.$http.post(this.url, this.filter).then(res => {
+        if (res.data.rtnCode === '000') {
+          this.total = res.data.data.total
+          this.$emit('callback', res.data.data)
+          let mo = this.total % this.pageSize
+          let totalPage = parseInt(this.total / this.pageSize)
+          if (mo === 0) {
+            this.totalPage = totalPage
+          } else {
+            this.totalPage = totalPage + 1
+          }
+        }
+      })
     },
     goUpPage () {
-      console.log('up', this.pageNo)
+      if (this.pageNo > 1) {
+        this.filter.pageNo = this.pageNo - 1
+        this.initialDisplay(this.filter)
+      }
     },
     goNextPage () {
-      console.log('next', this.pageNo)
+      if (this.pageNo < this.totalPage) {
+        this.filter.pageNo = this.pageNo + 1
+        this.initialDisplay(this.filter)
+      }
     }
   }
 }

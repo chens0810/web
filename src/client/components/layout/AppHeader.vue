@@ -1,10 +1,18 @@
 <template>
   <nav :class="classes">
     <div class="header-main">
-      <section style="background-image: url(static/image/logo.png); padding-right: 100px;" />
-      <RouteButton v-for="(item, index) in menuList" :key="index" :to="item.path" type="text">
-        {{ item.name }}
-      </RouteButton>
+      <div style="width: 1000px; display: flex;">
+        <section style="background-image: url(static/image/logo.png); padding-right: 100px;" />
+        <RouteButton v-for="(item, index) in menuList" :key="index" :to="item.path" type="text">
+          {{ item.name }}
+        </RouteButton>
+      </div>
+      <div v-if="_user.isLoggedin" style="width: 200px;">
+        <A style="color: white;" @click="doLogOut">
+          <Icon type="md-exit" size="24" />
+          退出
+        </A>
+      </div>
     </div>
     <div v-if="_isElectron" class="is-pulled-right">
       <Icon type="close" size="24" @click="closeWindow" />
@@ -13,15 +21,13 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import Icon from '../widgets/Icon'
+import { mapGetters, mapActions } from 'vuex'
 import RouteButton from '../widgets/RouteButton'
 
 export default {
   name: 'AppHeader',
 
   components: {
-    Icon,
     RouteButton
   },
 
@@ -39,6 +45,10 @@ export default {
           }
         ],
         admin: [ // 管理员展示菜单
+          {
+            name: '出售待审核',
+            path: '/saleAuth'
+          },
           {
             name: '操作日志',
             path: '/innerLog'
@@ -66,6 +76,9 @@ export default {
     ...mapGetters({
       _user: '_user',
       _trace: '_trace'
+    }),
+    ...mapActions({
+      userLogout: 'userLogout'
     }),
     classes () {
       return [
@@ -97,6 +110,9 @@ export default {
     },
     closeWindow () {
       this.$app.remote.getCurrentWindow().close()
+    },
+    doLogOut () {
+      this.userLogout()
     }
   }
 }
@@ -159,5 +175,6 @@ export default {
   line-height: 104px;
   margin: 0 auto;
   width: 1200px;
+  display: inline-flex;
 }
 </style>

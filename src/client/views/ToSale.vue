@@ -6,7 +6,7 @@
         <div style="width:400px; margin: 0 auto; padding-top: 20px;">
           <Form ref="formCustom" :model="toSaleData" :rules="ruleCustom" :label-width="100" style="text-align: left; font-size: 16px;">
             <FormItem label="服务器">
-              <RadioGroup v-model="toSaleData.server" size="large">
+              <RadioGroup v-model="toSaleData.serverType" size="large">
                 <Radio label="0">
                   <span>国服</span>
                 </Radio>
@@ -16,16 +16,16 @@
               </RadioGroup>
             </FormItem>
             <!-- 根据服务器进行的判断 -->
-            <FormItem v-if="toSaleData.server === '0'" label="账号绑定">
+            <FormItem v-if="toSaleData.serverType === '0'" label="账号绑定">
               <Input v-model="toSaleData.accBinding" size="large" placeholder="请输入账号绑定" clearable="true" />
             </FormItem>
-            <FormItem v-if="toSaleData.server === '0'" label="备注">
+            <FormItem v-if="toSaleData.serverType === '0'" label="备注">
               <Input v-model="toSaleData.remark" size="large" placeholder="请输入备注" clearable="true" />
             </FormItem>
-            <FormItem v-if="toSaleData.server === '1'" label="找回情况">
+            <FormItem v-if="toSaleData.serverType === '1'" label="找回情况">
               <Input v-model="toSaleData.caseBack" size="large" placeholder="请输入找回情况" clearable="true" />
             </FormItem>
-            <FormItem v-if="toSaleData.server === '1'" label="充值证明">
+            <FormItem v-if="toSaleData.serverType === '1'" label="充值证明">
               <Input v-model="toSaleData.topupProve" size="large" placeholder="请输入充值证明" clearable="true" />
             </FormItem>
             <FormItem label="操作系统">
@@ -80,7 +80,7 @@
               <Input v-model="toSaleData.heroCount" type="number" size="large" placeholder="请输入英灵数量" clearable="true" />
             </FormItem>
             <FormItem v-if="toSaleData.hasPic === '0'" label="描述">
-              <Input v-model="toSaleData.desc" size="large" placeholder="请输入描述" clearable="true" />
+              <Input v-model="toSaleData.description" size="large" placeholder="请输入描述" clearable="true" />
             </FormItem>
             <FormItem v-if="toSaleData.hasPic === '0'" label="特殊">
               <Input v-model="toSaleData.special" size="large" placeholder="请输入特殊" clearable="true" />
