@@ -23,7 +23,7 @@ export default {
     },
     pageNo: {
       type: Number,
-      default: 0
+      default: 1
     },
     total: {
       type: Number,
