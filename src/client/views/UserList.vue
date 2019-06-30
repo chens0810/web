@@ -1,30 +1,33 @@
 <template>
   <section class="text-center mainWidth">
     <div style="padding-top:45px; width: 1113px;">
-      <img src="/static/image/tit04.jpg">
+      <i class="title-tx">用户列表</i>
       <div class="mainInput">
         <table class="tableList">
           <tr>
-            <th>用户编号</th>
             <th>用户名称</th>
             <th>登录方式</th>
             <th>上次登录时间</th>
-            <th>状态</th>
           </tr>
           <tr v-for="(item, index) in acccountList" :key="index">
-            <td>{{ item.id }}</td>
-            <td>{{ item.name }}</td>
-            <td class="textBlock">
-              {{ item.type }}
+            <td>{{ item.userName }}</td>
+            <td v-if="item.type==='2'" class="textBlock">
+              网页
+            </td>
+            <td v-else-if="item.type==='1'">
+              QQ
+            </td>
+            <td v-else-if="item.type==='0'">
+              微信
+            </td>
+            <td v-else>
+              -
             </td>
             <td class="textBlock">
-              {{ item.time }}
-            </td>
-            <td>
-              {{ item.status }}
+              {{ item.logTime }}
             </td>
           </tr>
-          <Page ref="pageComment" :url="mainUrl" :page-no="pageNo" :col-count="4" @page-size="pageSize" />
+          <Page ref="pageComment" :url="mainUrl" :total="total" :page-no="filter.pageNo" :col-count="6" @page-size="filter.pageSize" @callback="showList" />
         </table>
       </div>
     </div>
@@ -34,109 +37,40 @@
 
 <script type="text/javascript">
 import Page from '../components/widgets/Page'
-import LoginTip from '../components/subssembly/LoginTip'
 export default {
   name: 'UserList',
   components: {
-    Page,
-    LoginTip
+    Page
   },
 
   data () {
     return {
-      mainUrl: '/test',
-      pageNo: 1,
-      pageSize: 12,
-      acccountList: [
-        {
-          id: '1',
-          name: '账号1',
-          type: '微信',
-          time: '2019-01-01 09:00:00',
-          status: '在线'
-        },
-        {
-          id: '2',
-          name: '账号1',
-          type: '微信',
-          time: '2019-01-01 09:00:00',
-          status: '在线'
-        },
-        {
-          id: '3',
-          name: '账号1',
-          type: '微信',
-          time: '2019-01-01 09:00:00',
-          status: '在线'
-        },
-        {
-          id: '4',
-          name: '账号1',
-          type: 'QQ',
-          time: '2019-01-01 09:00:00',
-          status: '离线'
-        },
-        {
-          id: '5',
-          name: '账号1',
-          type: 'QQ',
-          time: '2019-01-01 09:00:00',
-          status: '离线'
-        },
-        {
-          id: '1',
-          name: '账号2',
-          type: 'QQ',
-          time: '2019-01-01 09:00:00',
-          status: '离线'
-        },
-        {
-          id: '6',
-          name: '账号3',
-          type: '微信',
-          time: '2019-01-01 09:00:00',
-          status: '离线'
-        },
-        {
-          id: '7',
-          name: '账号4',
-          type: '微信',
-          time: '2019-01-01 09:00:00',
-          status: '离线'
-        }
-      ],
-      saledList: [
-        {
-          account: 'A000001',
-          type: '国服',
-          price: '￥100.00',
-          time: '2019-01-01 09:00:00'
-        },
-        {
-          account: 'A000002',
-          type: '国服',
-          price: '￥100.00',
-          time: '2019-01-01 09:00:00'
-        },
-        {
-          account: 'A000003',
-          type: '国服',
-          price: '￥100.00',
-          time: '2019-01-01 09:00:00'
-        }
-      ]
+      isLoading: false,
+      mainUrl: '/user/list',
+      filter: {
+        pageNo: 1,
+        pageSize: 10,
+        total: 0
+      },
+      colCount: 6,
+      acccountList: []
     }
   },
 
+  mounted () {
+    this.loadData()
+  },
+
   methods: {
-    onSubmit () {
-      console.log('key')
+    loadData () {
+      this.acccountList = []
+      this.$refs.pageComment.initialDisplay(this.filter)
     },
-    doUp (ev) {
-      alert('已禁止' + ev.id)
+    showList (columnsData) {
+      this.acccountList = columnsData.rows
     },
-    doCancel () {
-      this.$router.push('/account')
+    toggle (loading) {
+      this.isLoading = loading
     }
   }
 }
@@ -158,5 +92,12 @@ export default {
   border: 1px solid #b5d5e7;
   border-radius: 5px;
   text-align: left;
+}
+
+.title-tx {
+  text-align: left;
+  font-size: 28px;
+  float: left;
+  font-style: normal;
 }
 </style>

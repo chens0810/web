@@ -4,7 +4,7 @@
       <button @click="goUpPage">
         上一页
       </button>
-      <span style="color: #666666; padding: 10px;">第{{ pageNo }}/{{ totalPage }}页</span>
+      <span style="color: #666666; padding: 10px;">共{{ total }}条记录，第{{ pageNo }}/{{ totalPage }}页</span>
       <button @click="goNextPage">
         下一页
       </button>

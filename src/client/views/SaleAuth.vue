@@ -47,9 +47,9 @@ export default {
       mainUrl: '/sale/toAuthList',
       filter: {
         pageNo: 1,
+        total: 0,
         pageSize: 10
       },
-      total: 0,
       colCount: 6,
       dataList: []
     }

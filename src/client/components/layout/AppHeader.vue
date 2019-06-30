@@ -8,6 +8,8 @@
         </RouteButton>
       </div>
       <div v-if="_user.isLoggedin" style="width: 200px;">
+        <i style="font-style: normal; color: white; size: 24;"> 欢迎{{ _user.id }} </i>
+        &nbsp;&nbsp;&nbsp;&nbsp;
         <A style="color: white;" @click="doLogOut">
           <Icon type="md-exit" size="24" />
           退出
