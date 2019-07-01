@@ -11,17 +11,24 @@
             <th>操作系统</th>
             <th>出售人</th>
             <th>服务器</th>
-            <th>操作系统</th>
             <th>账号类型</th>
             <th>提交时间</th>
+            <th>操作</th>
           </tr>
           <tr v-for="(item, index) in dataList" :key="index">
-            <td>{{ item.system }}</td>
+            <td>{{ serverType[item.serverType] }}</td>
             <td>{{ item.userId }}</td>
-            <td>{{ item.serverType }}</td>
-            <td>{{ item.system }}</td>
-            <td>{{ item.type }}</td>
+            <td>{{ system[item.system] }}</td>
+            <td>{{ accType[item.type] }}</td>
             <td>{{ item.createdTime }}</td>
+            <td>
+              <Button type="primary" size="small" @click="doAudit(item)">
+                审核
+              </Button>
+              <Button type="info" size="small" @click="saleDetail(item)">
+                详情
+              </Button>
+            </td>
             <!-- <td class="textBlock">
               {{ item.system }}
             </td> -->
@@ -30,11 +37,29 @@
         </table>
       </div>
     </div>
+    <Modal v-model="auditModal" title="出售审核" @on-ok="submitAudit">
+      <Form ref="formCustom" :model="auditData" style="text-align: left; font-size: 16px;">
+        <FormItem label="审核结果：">
+          <RadioGroup v-model="auditData.auditFlag" size="large">
+            <Radio label="0">
+              <span>通过</span>
+            </Radio>
+            <Radio label="1">
+              <span>不通过</span>
+            </Radio>
+          </RadioGroup>
+        </FormItem>
+        <FormItem v-if="auditData.auditFlag === '1'" label="拒绝原因：">
+          <Input v-model="auditData.remark" type="textarea" style="width: 300px;" />
+        </FormItem>
+      </Form>
+    </Modal>
   </section>
 </template>
 
 <script type="text/javascript">
 import Page from '../components/widgets/Page'
+import { serverType, accType, system } from '@/utils/dictionary'
 export default {
   name: 'SaleAuth',
   components: {
@@ -43,6 +68,10 @@ export default {
 
   data () {
     return {
+      serverType: serverType,
+      accType: accType,
+      system: system,
+      auditModal: false,
       isLoading: false,
       mainUrl: '/sale/toAuthList',
       filter: {
@@ -51,7 +80,10 @@ export default {
         pageSize: 10
       },
       colCount: 6,
-      dataList: []
+      dataList: [],
+      auditData: {
+        auditFlag: '0'
+      }
     }
   },
 
@@ -69,6 +101,29 @@ export default {
     },
     toggle (loading) {
       this.isLoading = loading
+    },
+    doAudit (item) {
+      this.auditModal = true
+      this.auditData.id = item.id
+    },
+    saleDetail (item) {
+      this.$Notice.success({
+        title: '敬请期待！'
+      })
+    },
+    submitAudit () {
+      this.$http.post('/sale/audit', this.auditData).then(res => {
+        if (res.data.rtnCode === '000') {
+          this.$Notice.success({
+            title: '审核成功！'
+          })
+          this.loadData()
+        } else {
+          this.$Notice.error({
+            title: '提交失败，请检查！'
+          })
+        }
+      })
     }
   }
 }

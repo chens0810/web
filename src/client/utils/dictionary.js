@@ -15,3 +15,18 @@ export const metadataTypes = {
   1: '单选',
   2: '多选'
 }
+
+export const serverType = {
+  '0': '国服',
+  '1': '日服'
+}
+
+export const system = {
+  '0': 'IOS',
+  '1': '安卓'
+}
+
+export const accType = {
+  '0': '成品账号',
+  '1': '初始账号'
+}
