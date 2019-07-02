@@ -4,9 +4,9 @@
       <img src="/static/image/tit06.jpg">
       <div class="mainInput">
         <div style="width:400px; margin: 0 auto; padding-top: 20px;">
-          <Form ref="formCustom" :model="toSaleData" :rules="ruleCustom" :label-width="100" style="text-align: left; font-size: 16px;">
+          <Form ref="formCustom" :model="toBuyData" :rules="ruleCustom" :label-width="100" style="text-align: left; font-size: 16px;">
             <FormItem label="服务器">
-              <RadioGroup v-model="toSaleData.server" size="large">
+              <RadioGroup v-model="toBuyData.serverType" size="large">
                 <Radio label="0">
                   <span>国服</span>
                 </Radio>
@@ -16,18 +16,18 @@
               </RadioGroup>
             </FormItem>
             <FormItem label="求购预算">
-              <Input v-model="toSaleData.buyBuget" size="large" placeholder="请输入求购预算" clearable="true" />
+              <Input v-model="toBuyData.buyBuget" size="large" placeholder="请输入求购预算" clearable="true" type="Number" />
             </FormItem>
             <FormItem label="特殊需求">
-              <Input v-model="toSaleData.demand" size="large" placeholder="请输入特殊需求" clearable="true" />
+              <Input v-model="toBuyData.demand" size="large" placeholder="请输入特殊需求" clearable="true" />
             </FormItem>
             <FormItem label="求购留言">
-              <Input v-model="toSaleData.message" size="large" placeholder="请输入求购留言" clearable="true" />
+              <Input v-model="toBuyData.message" size="large" placeholder="请输入求购留言" clearable="true" />
             </FormItem>
           </Form>
         </div>
         <div class="buttonDiv">
-          <Button class="submitBtn">
+          <Button class="submitBtn" @click="onSubmit">
             提交
           </Button>
           <Button @click="doCancel">
@@ -49,16 +49,25 @@ export default {
   },
   data () {
     return {
-      toSaleData: {
-        type: '',
-        system: ''
-      }
+      toBuyData: {}
     }
   },
 
   methods: {
     onSubmit () {
-      console.log('onSubmit')
+      this.$http.post('/buy/addBuy', this.toBuyData).then(res => {
+        console.log(res)
+        if (res.data.rtnCode === '000') {
+          this.$Notice.success({
+            title: '提交成功，请耐心等待审核！'
+          })
+          this.$router.push('Account')
+        } else {
+          this.$Notice.error({
+            title: '提交失败，请检查！'
+          })
+        }
+      })
     },
     doCancel () {
       this.$router.push('/account')

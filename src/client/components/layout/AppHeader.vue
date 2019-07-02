@@ -52,6 +52,10 @@ export default {
             path: '/saleAuth'
           },
           {
+            name: '收购待审核',
+            path: '/buyAuth'
+          },
+          {
             name: '操作日志',
             path: '/innerLog'
           },

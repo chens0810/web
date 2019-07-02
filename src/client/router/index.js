@@ -99,5 +99,9 @@ export default new Router({
     path: '/saleAuth',
     name: 'SaleAuth',
     component: lazyLoad('SaleAuth')
+  }, {
+    path: '/buyAuth',
+    name: 'BuyAuth',
+    component: lazyLoad('BuyAuth')
   }]
 })
