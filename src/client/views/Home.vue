@@ -125,7 +125,7 @@ export default {
   },
 
   mounted () {
-    this.loadData()
+    // this.loadData()
   },
 
   methods: {
