@@ -16,20 +16,27 @@
           </tr>
           <tr v-for="(item, index) in dataList" :key="index">
             <td>{{ item.userId }}</td>
-            <td>{{ serverType[item.serverType] }}</td>
-            <td>{{ item.buyBuget }}</td>
-            <td>{{ item.demand }}</td>
-            <td>{{ item.message }}</td>
-            <td>{{ item.createdTime }}</td>
+            <td class="textBlock">
+              {{ serverType[item.serverType] }}
+            </td>
+            <td class="textBlock">
+              {{ item.buyBuget }}
+            </td>
+            <td class="textBlock">
+              {{ item.demand }}
+            </td>
+            <td class="textBlock">
+              {{ item.message }}
+            </td>
+            <td class="textBlock">
+              {{ item.createdTime }}
+            </td>
             <td>{{ auditStatus[item.state] }}</td>
             <td>
               <Button type="info" size="small" @click="saleDetail(item)">
                 详情
               </Button>
             </td>
-            <!-- <td class="textBlock">
-              {{ item.system }}
-            </td> -->
           </tr>
           <Page ref="pageComment" :url="mainUrl" :total="total" :page-no="filter.pageNo" :col-count="8" @page-size="filter.pageSize" @callback="showList" />
         </table>
