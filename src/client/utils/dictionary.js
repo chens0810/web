@@ -30,3 +30,9 @@ export const accType = {
   '0': '成品账号',
   '1': '初始账号'
 }
+
+export const auditStatus = {
+  '0': '待审核',
+  '1': '审核通过',
+  '2': '审核驳回'
+}

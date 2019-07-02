@@ -5,22 +5,29 @@
       <div class="mainInput">
         <table class="tableList">
           <tr>
-            <th>收购名称</th>
-            <th>国服/日服</th>
-            <th>发布时间</th>
-            <th>状态</th>
+            <th>操作系统</th>
+            <th>服务器</th>
+            <th>账号类型</th>
+            <th>提交时间</th>
+            <th>当前状态</th>
+            <th>操作</th>
           </tr>
-          <tr v-for="(item, index) in acccountList" :key="index">
-            <td>{{ item.name }}</td>
-            <td class="textBlock">
-              {{ item.type }}
+          <tr v-for="(item, index) in dataList" :key="index">
+            <td>{{ serverType[item.serverType] }}</td>
+            <td>{{ system[item.system] }}</td>
+            <td>{{ accType[item.type] }}</td>
+            <td>{{ item.createdTime }}</td>
+            <td>{{ auditStatus[item.state] }}</td>
+            <td>
+              <Button type="info" size="small" @click="saleDetail(item)">
+                详情
+              </Button>
             </td>
-            <td class="textBlock">
-              {{ item.time }}
-            </td>
-            <td>{{ item.status }}</td>
+            <!-- <td class="textBlock">
+              {{ item.system }}
+            </td> -->
           </tr>
-          <Page ref="pageComment" :url="mainUrl" :page-no="pageNo" :col-count="4" @page-size="pageSize" />
+          <Page ref="pageComment" :url="mainUrl" :total="total" :page-no="filter.pageNo" :col-count="6" @page-size="filter.pageSize" @callback="showList" />
         </table>
       </div>
     </div>
@@ -30,6 +37,7 @@
 
 <script type="text/javascript">
 import Page from '../components/widgets/Page'
+import { serverType, accType, system, auditStatus } from '@/utils/dictionary'
 import LoginTip from '../components/subssembly/LoginTip'
 export default {
   name: 'MySaled',
@@ -40,88 +48,35 @@ export default {
 
   data () {
     return {
-      mainUrl: '/test',
-      pageNo: 1,
-      pageSize: 12,
-      acccountList: [
-        {
-          name: '账号1',
-          type: '国服',
-          time: '2019-01-01 09:00:00',
-          status: '在售'
-        },
-        {
-          name: '账号1',
-          type: '国服',
-          time: '2019-01-01 09:00:00',
-          status: '在售'
-        },
-        {
-          name: '账号1',
-          type: '国服',
-          time: '2019-01-01 09:00:00',
-          status: '在售'
-        },
-        {
-          name: '账号1',
-          type: '国服',
-          time: '2019-01-01 09:00:00',
-          status: '在售'
-        },
-        {
-          name: '账号1',
-          type: '国服',
-          time: '2019-01-01 09:00:00',
-          status: '在售'
-        },
-        {
-          name: '账号2',
-          type: '国服',
-          time: '2019-01-01 09:00:00',
-          status: '已售'
-        },
-        {
-          name: '账号3',
-          type: '国服',
-          time: '2019-01-01 09:00:00',
-          status: '待售'
-        },
-        {
-          name: '账号4',
-          type: '国服',
-          time: '2019-01-01 09:00:00',
-          status: '待售'
-        }
-      ],
-      saledList: [
-        {
-          account: 'A000001',
-          type: '国服',
-          price: '￥100.00',
-          time: '2019-01-01 09:00:00'
-        },
-        {
-          account: 'A000002',
-          type: '国服',
-          price: '￥100.00',
-          time: '2019-01-01 09:00:00'
-        },
-        {
-          account: 'A000003',
-          type: '国服',
-          price: '￥100.00',
-          time: '2019-01-01 09:00:00'
-        }
-      ]
+      serverType: serverType,
+      accType: accType,
+      system: system,
+      auditStatus: auditStatus,
+      isLoading: false,
+      mainUrl: '/sale/myList',
+      filter: {
+        pageNo: 1,
+        total: 0,
+        pageSize: 10
+      },
+      dataList: []
     }
   },
 
+  mounted () {
+    this.loadData()
+  },
+
   methods: {
-    onSubmit () {
-      console.log('onSubmit')
+    loadData () {
+      this.dataList = []
+      this.$refs.pageComment.initialDisplay(this.filter)
     },
-    doCancel () {
-      this.$router.push('/account')
+    showList (columnsData) {
+      this.dataList = columnsData.rows
+    },
+    toggle (loading) {
+      this.isLoading = loading
     }
   }
 }

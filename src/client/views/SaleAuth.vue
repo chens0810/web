@@ -79,7 +79,6 @@ export default {
         total: 0,
         pageSize: 10
       },
-      colCount: 6,
       dataList: [],
       auditData: {
         auditFlag: '0'
