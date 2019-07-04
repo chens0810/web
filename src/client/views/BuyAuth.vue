@@ -14,17 +14,29 @@
             <th>特殊需求</th>
             <th>求购留言</th>
             <th>提交时间</th>
+            <th>当前状态</th>
             <th>操作</th>
           </tr>
           <tr v-for="(item, index) in dataList" :key="index">
             <td>{{ item.userId }}</td>
-            <td>{{ serverType[item.serverType] }}</td>
-            <td>{{ item.buyBuget }}</td>
-            <td>{{ item.demand }}</td>
-            <td>{{ item.message }}</td>
-            <td>{{ item.createdTime }}</td>
+            <td class="textBlock">
+              {{ serverType[item.serverType] }}
+            </td>
+            <td class="textBlock">
+              {{ item.buyBuget }}
+            </td>
+            <td class="textBlock">
+              {{ item.demand }}
+            </td>
+            <td class="textBlock">
+              {{ item.message }}
+            </td>
+            <td class="textBlock">
+              {{ item.createdTime }}
+            </td>
+            <td>{{ auditStatus[item.state] }}</td>
             <td>
-              <Button type="primary" size="small" @click="doAudit(item)">
+              <Button v-if="item.state === '0'" type="primary" size="small" @click="doAudit(item)">
                 审核
               </Button>
               <Button type="info" size="small" @click="saleDetail(item)">
@@ -35,7 +47,7 @@
               {{ item.system }}
             </td> -->
           </tr>
-          <Page ref="pageComment" :url="mainUrl" :total="total" :page-no="filter.pageNo" :col-count="7" @page-size="filter.pageSize" @callback="showList" />
+          <Page ref="pageComment" :url="mainUrl" :total="total" :page-no="filter.pageNo" :col-count="8" @page-size="filter.pageSize" @callback="showList" />
         </table>
       </div>
     </div>
@@ -61,7 +73,7 @@
 
 <script type="text/javascript">
 import Page from '../components/widgets/Page'
-import { serverType, accType, system } from '@/utils/dictionary'
+import { serverType, accType, system, auditStatus } from '@/utils/dictionary'
 export default {
   name: 'SaleAuth',
   components: {
@@ -73,9 +85,10 @@ export default {
       serverType: serverType,
       accType: accType,
       system: system,
+      auditStatus: auditStatus,
       auditModal: false,
       isLoading: false,
-      mainUrl: '/buy/toAuthList',
+      mainUrl: '/buy/queryList',
       filter: {
         pageNo: 1,
         total: 0,

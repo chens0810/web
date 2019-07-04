@@ -13,6 +13,7 @@
             <th>服务器</th>
             <th>账号类型</th>
             <th>提交时间</th>
+            <th>当前状态</th>
             <th>操作</th>
           </tr>
           <tr v-for="(item, index) in dataList" :key="index">
@@ -21,8 +22,9 @@
             <td>{{ system[item.system] }}</td>
             <td>{{ accType[item.type] }}</td>
             <td>{{ item.createdTime }}</td>
+            <td>{{ auditStatus[item.state] }}</td>
             <td>
-              <Button type="primary" size="small" @click="doAudit(item)">
+              <Button v-if="item.state === '0'" type="primary" size="small" @click="doAudit(item)">
                 审核
               </Button>
               <Button type="info" size="small" @click="saleDetail(item)">
@@ -59,7 +61,7 @@
 
 <script type="text/javascript">
 import Page from '../components/widgets/Page'
-import { serverType, accType, system } from '@/utils/dictionary'
+import { serverType, accType, system, auditStatus } from '@/utils/dictionary'
 export default {
   name: 'SaleAuth',
   components: {
@@ -71,9 +73,10 @@ export default {
       serverType: serverType,
       accType: accType,
       system: system,
+      auditStatus: auditStatus,
       auditModal: false,
       isLoading: false,
-      mainUrl: '/sale/toAuthList',
+      mainUrl: '/sale/queryList',
       filter: {
         pageNo: 1,
         total: 0,
