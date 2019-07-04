@@ -59,6 +59,10 @@ export default {
           } else {
             this.totalPage = totalPage + 1
           }
+        } else {
+          this.$Notice.error({
+            title: res.data.rtnMsg
+          })
         }
       })
     },
@@ -95,6 +99,7 @@ export default {
         margin-top: 20px;
         margin-bottom: 20px;
         background-color: #e9f4f9;
+        outline: none;
       }
     }
   }

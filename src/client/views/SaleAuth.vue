@@ -24,10 +24,16 @@
             <td>{{ item.createdTime }}</td>
             <td>{{ auditStatus[item.state] }}</td>
             <td>
-              <Button v-if="item.state === '0'" type="primary" size="small" @click="doAudit(item)">
+              <Button v-if="item.state === '0'" type="primary" size="small" ghost @click="doAudit(item)">
                 审核
               </Button>
-              <Button type="info" size="small" @click="saleDetail(item)">
+              <Button v-if="item.state === '1' && item.isRecommend === '0'" type="info" size="small" ghost @click="doSetRecommend(item.id, '1')">
+                设为推荐
+              </Button>
+              <Button v-if="item.state === '1' && item.isRecommend === '1'" type="info" size="small" ghost @click="doSetRecommend(item.id, '0')">
+                取消推荐
+              </Button>
+              <Button type="info" size="small" ghost @click="saleDetail(item)">
                 详情
               </Button>
             </td>
@@ -118,6 +124,24 @@ export default {
         if (res.data.rtnCode === '000') {
           this.$Notice.success({
             title: '审核成功！'
+          })
+          this.loadData()
+        } else {
+          this.$Notice.error({
+            title: '提交失败，请检查！'
+          })
+        }
+      })
+    },
+    doSetRecommend (id, flag) {
+      let param = {
+        id: id,
+        isRecommend: flag
+      }
+      this.$http.post('/sale/setRecommend', param).then(res => {
+        if (res.data.rtnCode === '000') {
+          this.$Notice.success({
+            title: '设置成功！'
           })
           this.loadData()
         } else {

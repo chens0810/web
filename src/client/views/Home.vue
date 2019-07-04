@@ -17,17 +17,17 @@
               <th>发布时间</th>
               <th>状态</th>
             </tr>
-            <tr v-for="(item, index) in acccountList" :key="index">
-              <td>{{ item.name }}</td>
+            <tr v-for="(item, index) in dataList" :key="index">
+              <td>{{ item.userId }}</td>
               <td class="textBlock">
-                {{ item.type }}
+                {{ serverType[item.serverType] }}
               </td>
               <td class="textBlock">
-                {{ item.time }}
+                {{ item.auditTime }}
               </td>
-              <td>{{ item.status }}</td>
+              <td>已售</td>
             </tr>
-            <Page ref="pageComment" :url="mainUrl" :page-no="pageNo" :col-count="4" @page-size="pageSize" />
+            <Page ref="pageComment" :url="mainUrl" :total="total" :page-no="filter.pageNo" :col-count="6" @page-size="filter.pageSize" @callback="showList" />
           </table>
         </div>
       </div>
@@ -64,6 +64,7 @@
 <script>
 import Page from '../components/widgets/Page'
 import LoginTip from '../components/subssembly/LoginTip'
+import { serverType } from '@/utils/dictionary'
 export default {
   name: 'HomePage',
   components: {
@@ -72,35 +73,15 @@ export default {
   },
   data () {
     return {
-      mainUrl: '/test',
-      pageNo: 1,
-      pageSize: 12,
-      acccountList: [
-        {
-          name: '账号1',
-          type: '国服',
-          time: '2019-01-01 09:00:00',
-          status: '在售'
-        },
-        {
-          name: '账号2',
-          type: '国服',
-          time: '2019-01-01 09:00:00',
-          status: '已售'
-        },
-        {
-          name: '账号3',
-          type: '国服',
-          time: '2019-01-01 09:00:00',
-          status: '待售'
-        },
-        {
-          name: '账号4',
-          type: '国服',
-          time: '2019-01-01 09:00:00',
-          status: '待售'
-        }
-      ],
+      serverType: serverType,
+      isLoading: false,
+      mainUrl: '/sale/homeRecommend',
+      filter: {
+        pageNo: 1,
+        total: 0,
+        pageSize: 10
+      },
+      dataList: [],
       saledList: [
         {
           account: 'A000001',
@@ -125,12 +106,19 @@ export default {
   },
 
   mounted () {
-    // this.loadData()
+    this.loadData()
   },
 
   methods: {
     loadData () {
-      this.$refs.pageComment.initialDisplay()
+      this.dataList = []
+      this.$refs.pageComment.initialDisplay(this.filter)
+    },
+    showList (columnsData) {
+      this.dataList = columnsData.rows
+    },
+    toggle (loading) {
+      this.isLoading = loading
     }
   }
 }
