@@ -57,9 +57,9 @@
                   <span>无图</span>
                 </Radio>
               </RadioGroup>
-              <Button v-if="toSaleData.hasPic === '1'" type="text" size="large">
+              <!-- <Button v-if="toSaleData.hasPic === '1'" type="text" size="large">
                 <Icon type="md-add-circle" size="16" />添加
-              </Button>
+              </Button> -->
             </FormItem>
             <!-- 根据是否有图进行的判断 -->
             <!-- 有图情况下进行的录入 -->
@@ -94,16 +94,21 @@
             <FormItem v-if="toSaleData.hasPic === '0'" label="找回情况">
               <Input v-model="toSaleData.caseBack" size="large" placeholder="请输入找回情况" clearable="true" />
             </FormItem>
+            <FormItem v-if="toSaleData.hasPic === '1'" label="截图列表">
+              <Upload type="drag" :action="`${urlPrefix}/file/upload`" :on-success="handleSuccess" :on-remove="handleRemove" :on-preview="handlePreview">
+                <Icon type="md-add-circle" size="16" />添加
+              </Upload>
+            </FormItem>
           </Form>
         </div>
-        <div v-if="toSaleData.hasPic === '1'" class="imageDiv">
+        <!-- <div v-if="toSaleData.hasPic === '1'" class="imageDiv">
           <div>
             <span style="font-size: 16px; padding-left: 30px; padding-top: 10px;">截图列表：</span>
           </div>
           <div>
-            <img v-for="(item, index) in imageList" :key="index" :src="item.path" style="width: 200px; padding: 5px 5px;">
+            <img v-for="(item, index) in imageList" :key="index" :src="`${urlPrefix}/file/download?fileId=${item.fileId}&fileName=${item.fileName}`" style="width: 200px; padding: 5px 5px;">
           </div>
-        </div>
+        </div> -->
         <div class="buttonDiv">
           <Button class="submitBtn" @click="onSubmit">
             提交
@@ -115,6 +120,9 @@
       </div>
     </div>
     <LoginTip />
+    <Modal v-model="imgModal" :title="`${showFile.fileName}-查看`">
+      <img :src="`${urlPrefix}/file/download?fileId=${showFile.fileId}&fileName=${showFile.fileName}`">
+    </Modal>
   </section>
 </template>
 
@@ -127,33 +135,22 @@ export default {
   },
   data () {
     return {
+      urlPrefix: process.env.API_CONF.baseURL,
+      imgModal: false,
       toSaleData: {
         type: '',
         system: ''
       },
-      imageList: [
-        {
-          path: '/static/image/ecode.png'
-        },
-        {
-          path: '/static/image/ecode.png'
-        },
-        {
-          path: '/static/image/ecode.png'
-        },
-        {
-          path: '/static/image/ecode.png'
-        },
-        {
-          path: '/static/image/ecode.png'
-        }
-      ]
+      imageList: [],
+      showFile: {}
     }
   },
-
+  mounted () {
+    // console.log(process.env)
+  },
   methods: {
     onSubmit () {
-      console.log(this.toSaleData)
+      console.log(this.imageList)
       this.$http.post('/sale/addSale', this.toSaleData).then(res => {
         console.log(res)
         if (res.data.rtnCode === '000') {
@@ -170,6 +167,30 @@ export default {
     },
     doCancel () {
       this.$router.push('/account')
+    },
+    handleSuccess (res, file) {
+      if (res.rtnCode === '000') {
+        this.imageList.push({
+          fileId: res.data.id,
+          fileName: res.data.fileName
+        })
+      }
+      console.log(res, file)
+    },
+    handleRemove (file, fileList) {
+      let fileId = file.response.data.id
+      for (let i = 0; i < this.imageList.length; i++) {
+        let item = this.imageList[i]
+        if (fileId === item.fileId) {
+          this.imageList.splice(i, 1)
+        }
+      }
+      console.log(fileList, file)
+    },
+    handlePreview (file) {
+      this.showFile.fileId = file.response.data.id
+      this.showFile.fileName = file.response.data.fileName
+      this.imgModal = true
     }
   }
 }
