@@ -48,6 +48,7 @@ export default {
   methods: {
     initialDisplay (filter) {
       this.filter = filter
+      this.pageSize = filter.pageSize
       this.$http.post(this.url, this.filter).then(res => {
         if (res.data.rtnCode === '000') {
           this.total = res.data.data.total

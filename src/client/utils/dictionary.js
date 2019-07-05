@@ -31,8 +31,15 @@ export const accType = {
   '1': '初始账号'
 }
 
-export const auditStatus = {
+export const saleStatus = {
   '0': '待审核',
-  '1': '审核通过',
-  '2': '审核驳回'
+  '1': '待售',
+  '2': '审核驳回',
+  '3': '已售'
+}
+export const buyStatus = {
+  '0': '待审核',
+  '1': '待收购',
+  '2': '审核驳回',
+  '3': '已收购'
 }

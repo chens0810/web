@@ -33,8 +33,11 @@ axios.interceptors.response.use(res => {
       })
     }
     // window.location = '/auth'
+    // this.$Notice.error({
+    //   title: '登录已过期，请重新登录！'
+    // })
     router.replace({
-      path: '/home'
+      path: '/login'
     })
   } else {
     return res

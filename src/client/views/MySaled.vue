@@ -23,7 +23,7 @@
             <td class="textBlock">
               {{ item.createdTime }}
             </td>
-            <td>{{ auditStatus[item.state] }}</td>
+            <td>{{ saleStatus[item.state] }}</td>
             <td>
               <Button type="info" size="small" @click="saleDetail(item)">
                 详情
@@ -40,7 +40,7 @@
 
 <script type="text/javascript">
 import Page from '../components/widgets/Page'
-import { serverType, accType, system, auditStatus } from '@/utils/dictionary'
+import { serverType, accType, system, saleStatus } from '@/utils/dictionary'
 import LoginTip from '../components/subssembly/LoginTip'
 export default {
   name: 'MySaled',
@@ -54,7 +54,7 @@ export default {
       serverType: serverType,
       accType: accType,
       system: system,
-      auditStatus: auditStatus,
+      saleStatus: saleStatus,
       isLoading: false,
       mainUrl: '/sale/myList',
       filter: {

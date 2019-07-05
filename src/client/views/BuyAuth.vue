@@ -34,7 +34,7 @@
             <td class="textBlock">
               {{ item.createdTime }}
             </td>
-            <td>{{ auditStatus[item.state] }}</td>
+            <td>{{ buyStatus[item.state] }}</td>
             <td>
               <Button v-if="item.state === '0'" type="primary" size="small" @click="doAudit(item)">
                 审核
@@ -73,7 +73,7 @@
 
 <script type="text/javascript">
 import Page from '../components/widgets/Page'
-import { serverType, accType, system, auditStatus } from '@/utils/dictionary'
+import { serverType, accType, system, buyStatus } from '@/utils/dictionary'
 export default {
   name: 'SaleAuth',
   components: {
@@ -85,7 +85,7 @@ export default {
       serverType: serverType,
       accType: accType,
       system: system,
-      auditStatus: auditStatus,
+      buyStatus: buyStatus,
       auditModal: false,
       isLoading: false,
       mainUrl: '/buy/queryList',

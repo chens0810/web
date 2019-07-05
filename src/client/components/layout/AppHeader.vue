@@ -2,7 +2,7 @@
   <nav :class="classes">
     <div class="header-main">
       <div style="width: 1000px; display: flex;">
-        <section style="background-image: url(static/image/logo.png); padding-right: 100px;" />
+        <a @click="goHome"><section style="background-image: url(static/image/logo.png); padding-right: 100px;" /> </a>
         <RouteButton v-for="(item, index) in menuList" :key="index" :to="item.path" type="text">
           {{ item.name }}
         </RouteButton>
@@ -119,6 +119,9 @@ export default {
     },
     doLogOut () {
       this.userLogout()
+    },
+    goHome () {
+      this.$router.push('/home')
     }
   }
 }
