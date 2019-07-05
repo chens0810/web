@@ -151,6 +151,7 @@ export default {
   methods: {
     onSubmit () {
       console.log(this.imageList)
+      this.toSaleData.picList = this.imageList
       this.$http.post('/sale/addSale', this.toSaleData).then(res => {
         console.log(res)
         if (res.data.rtnCode === '000') {
@@ -171,8 +172,8 @@ export default {
     handleSuccess (res, file) {
       if (res.rtnCode === '000') {
         this.imageList.push({
-          fileId: res.data.id,
-          fileName: res.data.fileName
+          id: res.data.id,
+          imgName: res.data.fileName
         })
       }
       console.log(res, file)
@@ -181,7 +182,7 @@ export default {
       let fileId = file.response.data.id
       for (let i = 0; i < this.imageList.length; i++) {
         let item = this.imageList[i]
-        if (fileId === item.fileId) {
+        if (fileId === item.id) {
           this.imageList.splice(i, 1)
         }
       }
