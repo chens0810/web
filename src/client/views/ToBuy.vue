@@ -7,31 +7,31 @@
           <Form ref="formCustom" :model="toBuyData" :rules="ruleCustom" :label-width="100" style="text-align: left; font-size: 16px;">
             <FormItem label="服务器">
               <RadioGroup v-model="toBuyData.serverType" size="large">
-                <Radio label="0">
+                <Radio label="0" :disabled="isReadOnly">
                   <span>国服</span>
                 </Radio>
-                <Radio label="1">
+                <Radio label="1" :disabled="isReadOnly">
                   <span>日服</span>
                 </Radio>
               </RadioGroup>
             </FormItem>
             <FormItem label="求购预算">
-              <Input v-model="toBuyData.buyBuget" size="large" placeholder="请输入求购预算" clearable="true" type="Number" />
+              <Input v-model="toBuyData.buyBuget" size="large" placeholder="请输入求购预算" clearable="true" type="Number" :disabled="isReadOnly" />
             </FormItem>
             <FormItem label="特殊需求">
-              <Input v-model="toBuyData.demand" size="large" placeholder="请输入特殊需求" clearable="true" />
+              <Input v-model="toBuyData.demand" size="large" placeholder="请输入特殊需求" clearable="true" :disabled="isReadOnly" />
             </FormItem>
             <FormItem label="求购留言">
-              <Input v-model="toBuyData.message" size="large" placeholder="请输入求购留言" clearable="true" />
+              <Input v-model="toBuyData.message" size="large" placeholder="请输入求购留言" clearable="true" :disabled="isReadOnly" />
             </FormItem>
           </Form>
         </div>
         <div class="buttonDiv">
-          <Button class="submitBtn" @click="onSubmit">
+          <Button v-if="!isReadOnly" class="submitBtn" @click="onSubmit">
             提交
           </Button>
           <Button @click="doCancel">
-            取消
+            {{ !isReadOnly ? '取消' : '返回' }}
           </Button>
         </div>
       </div>
@@ -49,7 +49,24 @@ export default {
   },
   data () {
     return {
-      toBuyData: {}
+      toBuyData: {},
+      isReadOnly: false
+    }
+  },
+
+  mounted () {
+    let buyId = this.$route.params.id
+    if (buyId) {
+      this.$http.post('/buy/queryDetail', { id: buyId }).then(res => {
+        if (res.data.rtnCode === '000') {
+          this.toBuyData = res.data.data
+          this.isReadOnly = true
+        } else {
+          this.$Notice.error({
+            title: res.data.rtnMsg
+          })
+        }
+      })
     }
   },
 
@@ -70,7 +87,7 @@ export default {
       })
     },
     doCancel () {
-      this.$router.push('/account')
+      this.$router.go(-1)
     }
   }
 }

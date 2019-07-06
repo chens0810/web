@@ -10,10 +10,12 @@
             <th>账号类型</th>
             <th>提交时间</th>
             <th>当前状态</th>
-            <th>操作</th>
+            <!-- <th>操作</th> -->
           </tr>
           <tr v-for="(item, index) in dataList" :key="index">
-            <td>{{ serverType[item.serverType] }}</td>
+            <td>
+              <a @click="saleDetail(item.id)">{{ serverType[item.serverType] }}</a>
+            </td>
             <td class="textBlock">
               {{ system[item.system] }}
             </td>
@@ -24,11 +26,11 @@
               {{ item.createdTime }}
             </td>
             <td>{{ saleStatus[item.state] }}</td>
-            <td>
+          <!--   <td>
               <Button type="info" size="small" @click="saleDetail(item)">
                 详情
               </Button>
-            </td>
+            </td> -->
           </tr>
           <Page ref="pageComment" :url="mainUrl" :total="total" :page-no="filter.pageNo" :col-count="6" @page-size="filter.pageSize" @callback="showList" />
         </table>
@@ -80,6 +82,9 @@ export default {
     },
     toggle (loading) {
       this.isLoading = loading
+    },
+    saleDetail (id) {
+      this.$router.push('/toSale/' + id)
     }
   }
 }

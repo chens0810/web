@@ -21,7 +21,9 @@
                 </th>
               </tr>
               <tr v-for="(item, index) in saleDataList" :key="`sale${index}`">
-                <td>{{ item.userId }}</td>
+                <td>
+                  <a @click="saleDetail(item.id)">{{ item.userId }}</a>
+                </td>
                 <td class="textBlock">
                   {{ serverType[item.serverType] }}
                 </td>
@@ -49,7 +51,9 @@
                 </th>
               </tr>
               <tr v-for="(item, index) in buyDataList" :key="`buy${index}`">
-                <td>{{ item.userId }}</td>
+                <td>
+                  <a @click="buyDetail(item.id)">{{ item.userId }}</a>
+                </td>
                 <td class="textBlock">
                   {{ serverType[item.serverType] }}
                 </td>
@@ -208,6 +212,12 @@ export default {
     },
     buyShowList (columnsData) {
       this.buyDataList = columnsData.rows
+    },
+    saleDetail (id) {
+      this.$router.push('/toSale/' + id)
+    },
+    buyDetail (id) {
+      this.$router.push('/toBuy/' + id)
     }
   }
 }

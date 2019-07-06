@@ -64,7 +64,15 @@ export default new Router({
     name: 'ToSale',
     component: lazyLoad('ToSale')
   }, {
+    path: '/toSale/:id',
+    name: 'ToSale',
+    component: lazyLoad('ToSale')
+  }, {
     path: '/toBuy',
+    name: 'ToBuy',
+    component: lazyLoad('ToBuy')
+  }, {
+    path: '/toBuy/:id',
     name: 'ToBuy',
     component: lazyLoad('ToBuy')
   }, {

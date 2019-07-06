@@ -18,7 +18,9 @@
             <th>操作</th>
           </tr>
           <tr v-for="(item, index) in dataList" :key="index">
-            <td>{{ item.userId }}</td>
+            <td>
+              <a @click="buyDetail(item.id)">{{ item.userId }}</a>
+            </td>
             <td class="textBlock">
               {{ serverType[item.serverType] }}
             </td>
@@ -38,9 +40,6 @@
             <td>
               <Button v-if="item.state === '0'" type="primary" size="small" @click="doAudit(item)">
                 审核
-              </Button>
-              <Button type="info" size="small" @click="saleDetail(item)">
-                详情
               </Button>
             </td>
             <!-- <td class="textBlock">
@@ -139,6 +138,9 @@ export default {
           })
         }
       })
+    },
+    buyDetail (id) {
+      this.$router.push('/toBuy/' + id)
     }
   }
 }

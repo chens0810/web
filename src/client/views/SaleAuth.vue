@@ -17,7 +17,9 @@
             <th>操作</th>
           </tr>
           <tr v-for="(item, index) in dataList" :key="index">
-            <td>{{ serverType[item.serverType] }}</td>
+            <td>
+              <a @click="saleDetail(item.id)">{{ serverType[item.serverType] }}</a>
+            </td>
             <td>{{ item.userId }}</td>
             <td>{{ system[item.system] }}</td>
             <td>{{ accType[item.type] }}</td>
@@ -32,9 +34,6 @@
               </Button>
               <Button v-if="item.state === '1' && item.isRecommend === '1'" type="info" size="small" ghost @click="doSetRecommend(item.id, '0')">
                 取消推荐
-              </Button>
-              <Button type="info" size="small" ghost @click="saleDetail(item)">
-                详情
               </Button>
             </td>
             <!-- <td class="textBlock">
@@ -114,10 +113,8 @@ export default {
       this.auditModal = true
       this.auditData.id = item.id
     },
-    saleDetail (item) {
-      this.$Notice.success({
-        title: '敬请期待！'
-      })
+    saleDetail (id) {
+      this.$router.push('/toSale/' + id)
     },
     submitAudit () {
       this.$http.post('/sale/audit', this.auditData).then(res => {

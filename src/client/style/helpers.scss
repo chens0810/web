@@ -129,6 +129,10 @@
       font-size: 16px;
       color: #2f6aa9;
       padding-left: 22px;
+
+      > a {
+        text-decoration: underline;
+      }
     }
   }
 }
